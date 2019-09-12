@@ -1,0 +1,97 @@
+.the-area {
+  height: 100vh;
+}
+
+.the-area a:hover {
+  text-decoration: none;
+}
+
+.the-area .theinput {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  width: 70%;
+}
+
+.the-area .resend {
+  margin-left: 15px;
+  padding: 0 10px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.the-area .resend:focus {
+  outline: none;
+}
+
+.the-area .question {
+  border: none;
+}
+
+.the-area .question:focus {
+  outline: none;
+}
+
+.the-area .service_btn {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.the-area .submitbtn {
+  font-size: 20pt;
+  padding: 10px 45px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#565353), to(#261b18));
+  background: linear-gradient(to bottom, #565353 0%, #261b18 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}
+
+.the-area .submitbtn:focus {
+  outline: none;
+}
+
+.the-area .customer_service {
+  color: #000000;
+}
+
+.the-area .text-input {
+  width: 57%;
+}
+
+.the-area input {
+  border: none;
+}
+
+.the-area input:focus {
+  outline: none;
+}
+
+.the-area .member-popup {
+  width: 500px;
+  padding: 30px 0;
+  border: 1px solid black;
+}
+
+.the-area .member-popup .my-index button {
+  border: none;
+}
+
+.the-area .member-popup .my-index button:focus {
+  outline: none;
+}
+
+.the-area .member-popup .my-index button img {
+  width: 100%;
+}
+
+.the-area .member-popup .member-card a {
+  text-align: center;
+  color: #ffffff;
+  display: block;
+  background-color: #1d0808;
+}
+
+.the-area .member-popup .member-card a:hover {
+  text-decoration: none;
+}
+/*# sourceMappingURL=all.css.map */
