@@ -32,13 +32,22 @@
                     <div class="my-index">
                         <h2 class="text-center">登入/註冊</h2>
                         <button onclick="LineAuth()"><img src="./content/img/btn_login_base.png" alt=""> </button>
+
                     </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
 
+
+
 </body>
+
+
+
 
 <script>
     let memberinfo = {
@@ -118,6 +127,39 @@
             })
             .catch(err => console.log(err))
     }
+
+    var finished_rendering = function () {
+        console.log("finished rendering plugins");
+        var spinner = document.getElementById("spinner");
+        spinner.removeAttribute("style");
+        spinner.removeChild(spinner.childNodes[0]);
+    }
+    FB.Event.subscribe('xfbml.render', finished_rendering);
+
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '{your-app-id}',
+            cookie: true,
+            xfbml: true,
+            version: '{api-version}'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+    });
 </script>
 
 </html>
