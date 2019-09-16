@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,38 +17,52 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./content/css/all.css">
     <title>Document</title>
+
+    <style>
+
+    </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row the-area">
             <div class="col d-flex align-items-center justify-content-center">
-                <div class="member-popup">
-                    <div class="member-card">
-                        <h2 class="text-center">您有會員卡嗎？</h2>
-                        <div class="d-flex justify-content-around mt-5">
-                            <a href="no_card.html" class="submitbtn nohave">沒有</a>
-                            <a href="test.html" class="submitbtn have">有</a>
-                        </div>
-                    </div>
 
+                <div class="member-popup">
+                    <div class="card-info">
+                        <h2 class="text-center">會員卡已使用</h2>
+                        <h3 class="text-center">您好，本會員卡已使用於其他帳號</h3>
+                        <p class="text-center mt-5"> <a href="E_inputinfo.html"
+                                class="mx-auto submitbtn mt-5">改以會員卡登入</a> </p>
+                        <p class="text-center mt-5"> <a href="F_customer_service.html"
+                                class="mx-auto submitbtn mt-5">聯絡客服</a> </p>
+
+                        <p class="text-center mt-5"> <a href="" class="mx-auto submitbtn mt-5 reinput">重新輸入</a>
+                        </p>
+
+
+
+
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
+</body>
 
 <script>
     let myid = location.search.slice(9);
 
     console.log(myid);
 
-    document.querySelector('.nohave').setAttribute("href", "no_card.html?line_id=" + myid);
+    document.querySelector('.reinput').setAttribute("href", "test.html?line_id=" + myid);
 
-    document.querySelector('.have').setAttribute("href", "test.html?line_id=" + myid);
+
 </script>
 
 </html>

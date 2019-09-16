@@ -33,11 +33,11 @@
                 <div class="member-popup">
                     <div class="card-info">
                         <h2 class="text-center">請完成以下資訊</h2>
-                        <form action="">
+                        <form action="" method="post" name="form1" onsubmit="return checkForm();">
 
                             <div class="d-flex justify-content-center">
                                 <div class="theinput ">
-                                    暱稱<input type="text" name="memberCardNo" class="card  nickname w-100">
+                                    暱稱<input type="text" name="nickname" class="card  nickname w-100">
                                 </div>
                             </div>
 
@@ -45,11 +45,10 @@
 
                             <div class="d-flex justify-content-center mt-3">
                                 <div class="theinput ">
-                                    e-mail*<input type="text" name="email" class="w-100">
+                                    e-mail*<input type="text" name="email" class="w-100 email" required>
                                 </div>
                             </div>
-                            <button type="button" onclick="sendinfo()"
-                                class="mx-auto d-block submitbtn mt-5">確認</button>
+                            <button type="submit" class="mx-auto d-block submitbtn mt-5">確認</button>
                         </form>
 
 
@@ -63,68 +62,39 @@
 
 <script>
 
-    let memberCardNo = "";
+    let mymail = "";
 
-    let mobile = "";
+    let nickname = "";
 
-    console.log(memberCardNo)
+    let myid = location.search.slice(9);
 
-    sendinfo = () => {
-        // axios('http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=H1658174&mobile=0975387808', {
-        //     // params: {
-        //     //     memberCardNo: memberCardNo,
-        //     //     mobile: mobile
+    console.log(myid)
 
-        //     // }
-        // })
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+    const checkForm = () => {
+        let isPassed = true;
 
-        // fetch('http://www.myhappy.com.tw/API/Customer.svc/getdata?memberCardNo=H1658174&mobile=0975387808',
-        //     {
-        //         method: "GET",
+        mymail = document.querySelector('.email').value;
+        nickname = document.querySelector('.nickname').value;
 
-        //     }).then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-        memberCardNo = document.querySelector(".card").value;
 
-        mobile = document.querySelector(".mobile").value;
-        console.log(memberCardNo);
-
-        console.log(mobile);
-
-        fetch("http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=" + memberCardNo + "&mobile=" + mobile, {
-            credentials: 'include',
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(obj => {
-                console.log(obj[0]);
-                if (obj[0]) {
-                    window.location.href = 'B_membercard.html';
-                }
+        if (isPassed) {
+            axios({
+                method: 'post',
+                url: 'http://localhost:5555/line',
+                data: {
+                    email: mymail,
+                    nickname: nickname,
+                    line_id: myid
+                },
             })
+                .then(res => { window.location.href = 'success.html'; })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
 
-        // axios.get('http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=H1658174&mobile=0975387808')
-        //     .then(function (response) {
-        //         // handle success
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        //     .finally(function () {
-        //         // always executed
-        //     });
+        return false;
+
     }
 
 
