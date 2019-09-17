@@ -30,6 +30,7 @@
 
     目前狀態：<span id="FB_STATUS_1"></span>
 
+    <button onclick="FB.login()">FACEBOOK登入</button>
 
 </body>
 
@@ -48,9 +49,15 @@
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
+
+
     };
 
     // 處理各種登入身份
+
+
+
+
     function statusChangeCallback(response) {
         console.log(response);
         var target = document.getElementById("FB_STATUS_1"),

@@ -1,0 +1,8 @@
+{
+  "liveServer.settings.https": {
+    "enable": true,
+    "cert": "/Users/wwmt_rd/Desktop/happyhair_line/127.0.0.1.pem", //證書根路徑
+    "key": "/Users/wwmt_rd/Desktop/happyhair_line/127.0.0.1-key.pem", //私鑰根目錄
+    "passphrase": "12345"
+  }
+}

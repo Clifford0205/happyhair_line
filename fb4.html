@@ -30,6 +30,9 @@
 
     目前狀態：<span id="FB_STATUS_1"></span>
 
+    <button onclick="FB.login()">FACEBOOK登入</button>
+
+    <button onclick="FB.logout()">FACEBOOK登出</button>
 
 </body>
 
@@ -39,18 +42,36 @@
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '409338252523613', // 填入 FB APP ID
+            appId: '515504119225224', // 填入 FB APP ID
             cookie: true,
             xfbml: true,
-            version: 'v2.10'
+            version: 'v4.0'
         });
 
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
+
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                // Logged into your webpage and Facebook.
+            } else {
+                // The person is not logged into your webpage or we are unable to tell. 
+            }
+        });
+
+        FB.logout(function (response) {
+            // Person is now logged out
+        });
+
+
     };
 
     // 處理各種登入身份
+
+
+
+
     function statusChangeCallback(response) {
         console.log(response);
         var target = document.getElementById("FB_STATUS_1"),
