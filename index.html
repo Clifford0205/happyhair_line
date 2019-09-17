@@ -31,8 +31,12 @@
                 <div class="member-popup">
                     <div class="my-index">
                         <h2 class="text-center">登入/註冊</h2>
-                        <button onclick="LineAuth()"><img src="./content/img/btn_login_base.png" alt=""> </button>
+                        <button onclick="LineAuth()" class="d-block"><img src="./content/img/btn_login_base.png" alt="">
+                        </button>
 
+                        <button class="loginBtn loginBtn--facebook d-block" onclick="login()">
+                            Login with Facebook
+                        </button>
                     </div>
 
 
@@ -50,6 +54,118 @@
 
 
 <script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '409338252523613', // 填入 FB APP ID
+            cookie: true,
+            xfbml: true,
+            version: 'v2.10'
+        });
+
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+
+
+
+
+    };
+
+    let fbid = "";
+
+    function login() {
+        FB.login(function (response) {
+            console.log(response);
+            if (response.status === 'connected') {
+                // Logged into your webpage and Facebook.
+                FB.api('/me?fields=id,name,email', function (response) {
+                    console.log(response);
+                    if (response.id) {
+                        fbid = response.id;
+                        window.location.href = 'B_membercard.html?fb_id=' + fbid;
+                    }
+                    // html += "會員暱稱：" + response.name + "<br/>";
+                    // html += "會員 email：" + response.email;
+                    // target.innerHTML = html;
+                });
+            } else {
+                // The person is not logged into your webpage or we are unable to tell. 
+            }
+        });
+    }
+
+    function logout() {
+        FB.logout(function (response) {
+            // Person is now logged out
+        });
+    }
+
+
+    // FB.login(function (response) {
+    //     if (response.status === 'connected') {
+    //         // Logged into your webpage and Facebook.
+    //     } else {
+    //         // The person is not logged into your webpage or we are unable to tell. 
+    //     }
+    // });
+
+    // FB.logout(function (response) {
+    //     // Person is now logged out
+    // });
+
+    // 處理各種登入身份
+
+
+
+
+    function statusChangeCallback(response) {
+        console.log(response);
+        var target = document.getElementById("FB_STATUS_1"),
+            html = "";
+
+        // 登入 FB 且已加入會員
+        if (response.status === 'connected') {
+            html = "已登入 FB，並加入 WFU BLOG DEMO 應用程式<br/>";
+
+            FB.api('/me?fields=id,name,email', function (response) {
+                console.log(response);
+                html += "會員暱稱：" + response.name + "<br/>";
+                html += "會員 email：" + response.email;
+                target.innerHTML = html;
+            });
+        }
+
+        // 登入 FB, 未偵測到加入會員
+        else if (response.status === "not_authorized") {
+            target.innerHTML = "已登入 FB，但未加入 WFU BLOG DEMO 應用程式";
+        }
+
+        // 未登入 FB
+        else {
+            target.innerHTML = "未登入 FB";
+        }
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    // 載入 FB SDK
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/zh_TW/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+    //line登入
+
     let memberinfo = {
         member_id: "",
         member_name: "",
@@ -128,38 +244,14 @@
             .catch(err => console.log(err))
     }
 
-    var finished_rendering = function () {
-        console.log("finished rendering plugins");
-        var spinner = document.getElementById("spinner");
-        spinner.removeAttribute("style");
-        spinner.removeChild(spinner.childNodes[0]);
-    }
-    FB.Event.subscribe('xfbml.render', finished_rendering);
 
 
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '{your-app-id}',
-            cookie: true,
-            xfbml: true,
-            version: '{api-version}'
-        });
 
-        FB.AppEvents.logPageView();
 
-    };
 
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    //facebook
 
-    FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
-    });
+
 </script>
 
 </html>
