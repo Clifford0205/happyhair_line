@@ -41,13 +41,25 @@
 
 
 <script>
+    let whatapp = location.search.slice(1, 5);
+
     let myid = location.search.slice(9);
 
     console.log(myid);
 
-    document.querySelector('.nohave').setAttribute("href", "no_card.html?line_id=" + myid);
+    console.log(whatapp);
 
-    document.querySelector('.have').setAttribute("href", "test.html?line_id=" + myid);
+    if (whatapp === "myfb") {
+        document.querySelector('.nohave').setAttribute("href", "no_card.html?myfb_id=" + myid);
+
+        document.querySelector('.have').setAttribute("href", "C_cardinfo.html?myfb_id=" + myid);
+    } else {
+        document.querySelector('.nohave').setAttribute("href", "no_card.html?line_id=" + myid);
+
+        document.querySelector('.have').setAttribute("href", "C_cardinfo.html?line_id=" + myid);
+    }
+
+
 </script>
 
 </html>

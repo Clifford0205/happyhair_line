@@ -82,7 +82,7 @@
                     console.log(response);
                     if (response.id) {
                         fbid = response.id;
-                        window.location.href = 'B_membercard.html?fb_id=' + fbid;
+                        window.location.href = 'B_membercard.html?myfb_id=' + fbid;
                     }
                     // html += "會員暱稱：" + response.name + "<br/>";
                     // html += "會員 email：" + response.email;
@@ -178,7 +178,7 @@
         var URL = 'https://access.line.me/oauth2/v2.1/authorize?';
         URL += 'response_type=code';
         URL += '&client_id=1605499479';
-        URL += '&redirect_uri=http://127.0.0.1:5500/index.html';
+        URL += '&redirect_uri=https://127.0.0.1:5500/index.html';
         URL += '&state=abcde';
         URL += '&scope=openid%20profile';
         window.location.href = URL;
@@ -197,7 +197,7 @@
     if (mycode) {
         var formData = {
             'grant_type': 'authorization_code',
-            'redirect_uri': 'http://127.0.0.1:5500/index.html',
+            'redirect_uri': 'https://127.0.0.1:5500/index.html',
             'client_id': '1605499479',
             'client_secret': '097642b9b568163282d92b2d4aa4be3b',
             'code': mycode

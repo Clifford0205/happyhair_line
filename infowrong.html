@@ -50,69 +50,24 @@
 
 <script>
 
-    let memberCardNo = "";
+    let whatapp = location.search.slice(1, 5);
 
-    let mobile = "";
+    let myid = location.search.slice(9);
 
-    console.log(memberCardNo)
+    console.log(myid);
 
-    sendinfo = () => {
-        // axios('http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=H1658174&mobile=0975387808', {
-        //     // params: {
-        //     //     memberCardNo: memberCardNo,
-        //     //     mobile: mobile
+    console.log(whatapp);
 
-        //     // }
-        // })
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+    if (whatapp === "myfb") {
+        document.querySelector('.nohave').setAttribute("href", "no_card.html?myfb_id=" + myid);
 
-        // fetch('http://www.myhappy.com.tw/API/Customer.svc/getdata?memberCardNo=H1658174&mobile=0975387808',
-        //     {
-        //         method: "GET",
+        document.querySelector('.have').setAttribute("href", "C_cardinfo.html?myfb_id=" + myid);
+    } else {
+        document.querySelector('.nohave').setAttribute("href", "no_card.html?line_id=" + myid);
 
-        //     }).then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-        memberCardNo = document.querySelector(".card").value;
-
-        mobile = document.querySelector(".mobile").value;
-        console.log(memberCardNo);
-
-        console.log(mobile);
-
-        fetch("http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=" + memberCardNo + "&mobile=" + mobile, {
-            credentials: 'include',
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(obj => {
-                console.log(obj[0]);
-                if (obj[0]) {
-                    window.location.href = 'B_membercard.html';
-                }
-            })
-
-        // axios.get('http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=H1658174&mobile=0975387808')
-        //     .then(function (response) {
-        //         // handle success
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        //     .finally(function () {
-        //         // always executed
-        //     });
+        document.querySelector('.have').setAttribute("href", "C_cardinfo.html?line_id=" + myid);
     }
+
 
 
 </script>
