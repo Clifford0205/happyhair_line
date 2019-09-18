@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./content/css/all.css">
     <title>Document</title>
 
@@ -81,8 +82,19 @@
                 FB.api('/me?fields=id,name,email', function (response) {
                     console.log(response);
                     if (response.id) {
-                        fbid = response.id;
-                        window.location.href = 'B_membercard.html?myfb_id=' + fbid;
+                        console.log(response.id);
+                        axios("http://localhost:5555/line?myfb_id=" + response.id)
+                            .then(response => response.data)
+                            .then(obj => {
+                                console.log(obj)
+                                if (obj.length === 0) {
+                                    window.location.href = 'B_membercard.html?myfb_id=' + response.id;
+                                } else {
+                                    window.location.href = 'success.html';
+                                }
+                            })
+                        // fbid = response.id;
+                        // window.location.href = 'B_membercard.html?myfb_id=' + fbid;
                     }
                     // html += "會員暱稱：" + response.name + "<br/>";
                     // html += "會員 email：" + response.email;

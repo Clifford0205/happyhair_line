@@ -66,9 +66,13 @@
 
     let nickname = "";
 
+    let whatapp = location.search.slice(1, 5);
+
     let myid = location.search.slice(9);
 
-    console.log(myid)
+    console.log(myid);
+
+    console.log(whatapp);
 
     const checkForm = () => {
         let isPassed = true;
@@ -77,20 +81,42 @@
         nickname = document.querySelector('.nickname').value;
 
 
-        if (isPassed) {
-            axios({
-                method: 'post',
-                url: 'http://localhost:5555/line',
-                data: {
-                    email: mymail,
-                    nickname: nickname,
-                    line_id: myid
-                },
-            })
-                .then(res => { window.location.href = 'success.html'; })
-                .catch(function (error) {
-                    console.log(error);
-                });
+
+        if (whatapp === "myfb") {
+            if (isPassed) {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:5555/line',
+                    data: {
+                        email: mymail,
+                        nickname: nickname,
+                        myfb_id: myid,
+                        line_id: "",
+                    },
+                })
+                    .then(res => { window.location.href = 'success.html'; })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        } else {
+            if (isPassed) {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:5555/line',
+                    data: {
+                        email: mymail,
+                        nickname: nickname,
+                        line_id: myid,
+                        myfb_id: "",
+                    },
+                })
+                    .then(res => { window.location.href = 'success.html'; })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+
         }
 
         return false;
