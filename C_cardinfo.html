@@ -76,6 +76,11 @@
 
     let myid = location.search.slice(9);
 
+    let whatapp = location.search.slice(1, 5);
+
+
+    console.log(whatapp);
+
 
 
     console.log(myid)
@@ -100,24 +105,48 @@
                                 console.log(response.data.length)
                                 if (response.data.length !== 0) { window.location.href = 'D_alreadyuse.html?line_id=' + myid }
                                 else {
-                                    axios({
-                                        method: 'post',
-                                        url: 'http://localhost:5555/line',
-                                        data: {
-                                            email: mymail,
-                                            line_id: myid,
-                                            cardno: memberCardNo,
-                                            mobile: mobile
-                                        },
-                                    }).then(res => { window.location.href = 'success.html'; })
-                                        .catch(function (error) {
-                                            console.log(error);
-                                        });
+
+                                    if (whatapp === "myfb") {
+                                        axios({
+                                            method: 'post',
+                                            url: 'http://localhost:5555/line',
+                                            data: {
+                                                email: mymail,
+                                                myfb_id: myid,
+                                                line_id: "",
+                                                cardno: memberCardNo,
+                                                mobile: mobile,
+                                                nickname: ""
+                                            },
+                                        }).then(res => { window.location.href = 'success.html'; })
+                                            .catch(function (error) {
+                                                console.log(error);
+                                            });
+                                    } else {
+                                        axios({
+                                            method: 'post',
+                                            url: 'http://localhost:5555/line',
+                                            data: {
+                                                email: mymail,
+                                                line_id: myid,
+                                                myfb_id: "",
+                                                cardno: memberCardNo,
+                                                mobile: mobile,
+                                                nickname: ""
+                                            },
+                                        }).then(res => { window.location.href = 'success.html'; })
+                                            .catch(function (error) {
+                                                console.log(error);
+                                            });
+                                    }
+
                                 }
                             })
                             .catch(function (error) {
                                 console.log(error);
                             });
+                    } else {
+                        window.location.href = 'infowrong.html?line_id=' + myid
                     }
                 })
                 // .then(obj => {

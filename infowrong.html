@@ -36,7 +36,7 @@
                         <h2 class="text-center">您的會員卡資料輸入錯誤</h2>
 
                         <p class="text-center mt-5"> <a href="C_cardinfo.html" onclick="sendinfo()"
-                                class="mx-auto submitbtn mt-5">重新輸入</a> </p>
+                                class="mx-auto submitbtn mt-5 reinput">重新輸入</a> </p>
 
 
 
@@ -59,13 +59,9 @@
     console.log(whatapp);
 
     if (whatapp === "myfb") {
-        document.querySelector('.nohave').setAttribute("href", "no_card.html?myfb_id=" + myid);
-
-        document.querySelector('.have').setAttribute("href", "C_cardinfo.html?myfb_id=" + myid);
+        document.querySelector('.reinput').setAttribute("href", "C_cardinfo.html?myfb_id=" + myid);
     } else {
-        document.querySelector('.nohave').setAttribute("href", "no_card.html?line_id=" + myid);
-
-        document.querySelector('.have').setAttribute("href", "C_cardinfo.html?line_id=" + myid);
+        document.querySelector('.reinput').setAttribute("href", "C_cardinfo.html?line_id=" + myid);
     }
 
 
