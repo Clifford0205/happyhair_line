@@ -32,15 +32,24 @@
                 <div class="member-popup">
                     <div class="my-index">
                         <h2 class="text-center">登入/註冊</h2>
-                        <button onclick="LineAuth()" class="d-block"><img src="./content/img/btn_login_base.png" alt="">
-                        </button>
+                        <p class="text-center"> <button onclick="LineAuth()" class=""><img
+                                    src="./content/img/btn_login_base.png" alt="">
+                            </button>
+                        </p>
 
-                        <button class="loginBtn loginBtn--facebook d-block" onclick="login()">
-                            Login with Facebook
-                        </button>
+
+                        <p class="text-center">
+                            <button class="loginBtn loginBtn--facebook " onclick="login()">
+                                Login with Facebook
+                            </button>
+                        </p>
                     </div>
 
-
+                    <div class="d-flex justify-content-center mt-5">
+                        <a href="E_inputinfo.html">會員卡</a>
+                        <div class="theline"></div>
+                        <a href="F_customer_service.html">聯絡客服</a>
+                    </div>
 
                 </div>
             </div>
@@ -55,6 +64,9 @@
 
 
 <script>
+
+    //FB API連結設定
+
     window.fbAsyncInit = function () {
         FB.init({
             appId: '409338252523613', // 填入 FB APP ID
@@ -62,18 +74,14 @@
             xfbml: true,
             version: 'v2.10'
         });
-
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
-
-
-
-
     };
 
     let fbid = "";
 
+    //按下fb按鈕觸發
     function login() {
         FB.login(function (response) {
             console.log(response);
@@ -88,17 +96,12 @@
                             .then(obj => {
                                 console.log(obj)
                                 if (obj.length === 0) {
-                                    window.location.href = 'B_membercard.html?myfb_id=' + response.id;
+                                    window.location.href = 'B_membercard.html?myfb_id=' + response.id + '&name=' + response.name;
                                 } else {
                                     window.location.href = 'success.html';
                                 }
                             })
-                        // fbid = response.id;
-                        // window.location.href = 'B_membercard.html?myfb_id=' + fbid;
                     }
-                    // html += "會員暱稱：" + response.name + "<br/>";
-                    // html += "會員 email：" + response.email;
-                    // target.innerHTML = html;
                 });
             } else {
                 // The person is not logged into your webpage or we are unable to tell. 
@@ -113,48 +116,27 @@
     }
 
 
-    // FB.login(function (response) {
-    //     if (response.status === 'connected') {
-    //         // Logged into your webpage and Facebook.
-    //     } else {
-    //         // The person is not logged into your webpage or we are unable to tell. 
-    //     }
-    // });
-
-    // FB.logout(function (response) {
-    //     // Person is now logged out
-    // });
-
-    // 處理各種登入身份
 
 
 
 
     function statusChangeCallback(response) {
         console.log(response);
-        var target = document.getElementById("FB_STATUS_1"),
-            html = "";
+
 
         // 登入 FB 且已加入會員
         if (response.status === 'connected') {
-            html = "已登入 FB，並加入 WFU BLOG DEMO 應用程式<br/>";
-
             FB.api('/me?fields=id,name,email', function (response) {
                 console.log(response);
-                html += "會員暱稱：" + response.name + "<br/>";
-                html += "會員 email：" + response.email;
-                target.innerHTML = html;
             });
         }
-
         // 登入 FB, 未偵測到加入會員
         else if (response.status === "not_authorized") {
-            target.innerHTML = "已登入 FB，但未加入 WFU BLOG DEMO 應用程式";
-        }
 
+        }
         // 未登入 FB
         else {
-            target.innerHTML = "未登入 FB";
+
         }
     }
 
@@ -175,13 +157,15 @@
     }(document, 'script', 'facebook-jssdk'));
 
 
+    //FB API結束
 
-    //line登入
+
+
+    //line API連結設定
 
     let memberinfo = {
         member_id: "",
         member_name: "",
-
     }
 
 
@@ -258,10 +242,9 @@
 
 
 
+    //line 結束
 
 
-
-    //facebook
 
 
 </script>

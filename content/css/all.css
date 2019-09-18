@@ -3,8 +3,18 @@
   /* Facebook */
 }
 
+.the-area a {
+  color: #000000;
+}
+
 .the-area a:hover {
   text-decoration: none;
+}
+
+.the-area .theline {
+  width: 3px;
+  background-color: #000;
+  margin: 0 10px;
 }
 
 .the-area .theinput {
@@ -82,7 +92,7 @@
 }
 
 .the-area .member-popup .my-index button img {
-  width: 100%;
+  width: 69%;
 }
 
 .the-area .member-popup .member-card a {

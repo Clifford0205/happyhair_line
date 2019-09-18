@@ -68,11 +68,24 @@
 
     let whatapp = location.search.slice(1, 5);
 
-    let myid = location.search.slice(9);
+    let myid = location.search.slice(9).split("&")[0];
+
+    let name = location.search.split('name')[1].slice(1);
+
+    let truename = decodeURI(name);
+
 
     console.log(myid);
 
     console.log(whatapp);
+
+    console.log(name);
+
+    console.log(truename);
+
+    if (truename) {
+        document.querySelector('.nickname').value = truename;
+    }
 
     const checkForm = () => {
         let isPassed = true;

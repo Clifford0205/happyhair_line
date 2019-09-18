@@ -1,8 +1,19 @@
 .the-area {
     height: 100vh;
 
+    a {
+        color: #000000;
+    }
+
     a:hover {
         text-decoration: none;
+    }
+
+    .theline {
+
+        width: 3px;
+        background-color: #000;
+        margin: 0 10px;
     }
 
     .theinput {
@@ -81,7 +92,7 @@
                 }
 
                 img {
-                    width: 100%;
+                    width: 69%;
                 }
             }
         }
