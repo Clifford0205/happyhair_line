@@ -220,19 +220,22 @@
                 // console.log(jsonPayload);
             })
             // .then(linedata => console.log(linedata))
-            .then(linedata => linedata.sub)
-            .then(myid => {
-                fetch("http://localhost:5555/line?line_id=" + myid, {
+            .then(linedata => linedata)
+            .then(linedata => {
+                console.log(linedata.sub);
+                fetch("http://localhost:5555/line?line_id=" + linedata.sub, {
                     credentials: 'include',
                     method: 'GET',
                 })
                     .then(response => response.json())
+
                     .then(obj => {
-                        console.log(obj[0]);
-                        if (obj[0]) {
+                        console.log(obj);
+                        console.log(linedata);
+                        if (obj.length !== 0) {
                             window.location.href = 'success.html';
                         } else {
-                            window.location.href = 'B_membercard.html?line_id=' + myid;
+                            window.location.href = 'B_membercard.html?line_id=' + linedata.sub + '&name=' + linedata.name;
                         }
                     })
 
