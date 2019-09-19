@@ -44,15 +44,17 @@
 
                             <div class="d-flex justify-content-center mt-3">
                                 <div class="theinput ">
-                                    手機*<input type="text" name="mobile" class="mobile w-100">
+                                    手機*<input type="text" name="mobile" class="w-100 mobile">
                                 </div>
                             </div>
+                            <div id="mobilelHelp" class="text-center " style="color:red"> </div>
 
                             <div class="d-flex justify-content-center mt-3">
                                 <div class="theinput ">
                                     e-mail<input type="text" name="email" class="w-100 email">
                                 </div>
                             </div>
+                            <div id="emailHelp" class="text-center " style="color:red"> </div>
                             <button type="submit" class="mx-auto d-block submitbtn mt-5">確認</button>
                         </form>
 
@@ -87,11 +89,46 @@
 
     const checkForm = () => {
         let isPassed = true;
+
         memberCardNo = document.querySelector('.card').value;
+
         mobile = document.querySelector('.mobile').value;
+
         mymail = document.querySelector('.email').value;
-        console.log(memberCardNo)
-        console.log(mobile)
+
+        console.log(memberCardNo);
+
+        console.log(mobile);
+
+        console.log(mymail);
+
+
+        let email_pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+        let mobile_pattern = /^09\d{8}$/;
+
+
+        // if (!mobile_pattern.test(mymail)) {
+        //     document.querySelector('#mobileHelp').innerHTML = '請填寫正確的 Email!';
+        //     isPassed = false;
+        // }
+
+        if (!mobile_pattern.test(mobile)) {
+            document.querySelector('#mobilelHelp').innerHTML = '請填寫正確的手機號碼!';
+            isPassed = false;
+        }
+
+
+        if (!email_pattern.test(mymail)) {
+            document.querySelector('#emailHelp').innerHTML = '請填寫正確的 Email!';
+            isPassed = false;
+        }
+
+
+
+
+
+
         if (isPassed) {
             // axios("http://203.69.60.193:31480/API/Customer.svc/getdata?memberCardNo=" + memberCardNo + "&mobile=" + mobile)
             axios("http://localhost:5555/fortest?MemberCardNo=" + memberCardNo + "&mobile=" + mobile)
@@ -149,39 +186,7 @@
                         window.location.href = 'infowrong.html?line_id=' + myid
                     }
                 })
-                // .then(obj => {
-                //     console.log(obj.length);
-                //     if (obj.MemberCardNo !== true) {
-                //         axios("http://localhost:5555/line?cardno=" + obj.MemberCardNo)
-                //             .then(response => {
-                //                 console.log(response)
-                //                 if (response.data.length !== 0) { window.location.href = 'D_alreadyuse.html?line_id=' + myid }
-                //                 else {
-                //                     axios({
-                //                         method: 'post',
-                //                         url: 'http://localhost:5555/line',
-                //                         data: {
-                //                             email: mymail,
-                //                             line_id: myid,
-                //                             cardno: memberCardNo,
-                //                             mobile: mobile
-                //                         },
-                //                     }).then(res => { window.location.href = 'success.html'; })
-                //                         .catch(function (error) {
-                //                             console.log(error);
-                //                         });
-                //                 }
-                //             })
-                //             .catch(function (error) {
-                //                 console.log(error);
-                //             });
 
-                //     } else {
-                //         window.location.href = 'infowrong.html?line_id=' + myid
-                //     }
-                // }
-
-                // )
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -191,36 +196,6 @@
 
     }
 
-    // const checkForm = () => {
-    //     let isPassed = true;
-    //     memberCardNo = document.querySelector('.card').value;
-    //     mobile = document.querySelector('.mobile').value;
-    //     mymail = document.querySelector('.email').value;
-    //     console.log(memberCardNo)
-    //     console.log(mobile)
-    //     if (isPassed) {
-    //         axios("http://localhost:5555/fortest?memberCardNo=" + memberCardNo + "&mobile=" + mobile)
-    //             .then(response => response.data[0])
-    //             .then(obj => console.log(obj))
-    //             .catch(function (error) {
-    //                 console.log(error);
-    //             });
-    //     }
-
-    //     return false;
-
-    // }
-
-    // if (obj.MemberCardNo !== null) {
-    //                     axios({
-    //                         method: 'post',
-    //                         url: 'http://localhost:5555/line',
-    //                         data: {
-    //                             email: mymail,
-    //                             line_id: myid,
-    //                             cardno: memberCardNo,
-    //                         },
-    //                     }).then(res => { window.location.href = 'success.html'; })
 
 
 

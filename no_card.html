@@ -48,6 +48,7 @@
                                     e-mail*<input type="text" name="email" class="w-100 email" required>
                                 </div>
                             </div>
+                            <div id="emailHelp" class="text-center " style="color:red"> </div>
                             <button type="submit" class="mx-auto d-block submitbtn mt-5">確認</button>
                         </form>
 
@@ -93,7 +94,12 @@
         mymail = document.querySelector('.email').value;
         nickname = document.querySelector('.nickname').value;
 
+        let email_pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
+        if (!email_pattern.test(mymail)) {
+            document.querySelector('#emailHelp').innerHTML = '請填寫正確的 Email!';
+            isPassed = false;
+        }
 
         if (whatapp === "myfb") {
             if (isPassed) {

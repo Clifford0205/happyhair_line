@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./content/css/all.css">
     <title>Document</title>
 </head>
@@ -28,7 +29,7 @@
                     <div class="member-card">
                         <h2 class="text-center">請輸入資訊</h2>
 
-                        <form action="">
+                        <form action="" method="post" name="form1" onsubmit="return checkForm();">
                             <div class="d-flex justify-content-center">
                                 <div class="theinput ">
                                     輸入卡號<input type="text" name="memberCardNo" class="card w-100">
@@ -36,13 +37,13 @@
                             </div>
                             <div class="d-flex mt-3 justify-content-center">
                                 <div class="theinput text-input">
-                                    輸入簡訊驗證碼 <br> <input type="text" name="text_message" class="mobile w-100">
+                                    輸入簡訊驗證碼 <br> <input type="text" name="text_message" class="txtinput w-100">
                                 </div>
-                                <button class="resend">重新<br>發送</button>
+                                <button type="button" class="resend">重新<br>發送</button>
+
                             </div>
 
-                            <button type="button" onclick="sendinfo()"
-                                class="mx-auto d-block submitbtn mt-5">確認</button>
+                            <button type="submit" class="mx-auto d-block submitbtn mt-5">確認</button>
                         </form>
                     </div>
 
@@ -53,3 +54,82 @@
 </body>
 
 </html>
+
+<script>
+    let memberCardNo = "";
+
+    let resend = document.querySelector('.resend');
+
+    let txtmsg = "";
+
+    let txtinput = "";
+
+    console.log(resend);
+
+    function rand(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function randomsix() {
+        txtmsg = rand(100000, 999999);
+        console.log(txtmsg);
+    }
+
+
+    //對比會員卡號是否存在,並且將驗證碼設定至資料庫
+    const sendtxt = () => {
+        memberCardNo = document.querySelector('.card').value;
+        axios("http://localhost:5555/fortest?MemberCardNo=" + memberCardNo)
+            .then(response => response.data[0])
+            .then(obj => {
+                if (obj) {
+                    console.log(obj);
+                    axios({
+                        method: 'put',
+                        url: 'http://localhost:5555/fortest/' + obj.id,
+                        data: {
+                            MemberCardNo: obj.MemberCardNo,
+                            mobile: obj.mobile,
+                            txtmsg: txtmsg.toString()
+                        },
+                    }).then(response => console.log(response))
+                }
+                else { alert("會員卡號錯誤") }
+            })
+    }
+
+
+
+    //登入
+    const checkForm = () => {
+        let isPassed = true;
+
+        txtinput = document.querySelector('.txtinput').value;
+
+        if (isPassed) {
+            axios("http://localhost:5555/fortest?MemberCardNo=" + memberCardNo + "&txtmsg=" + txtinput)
+                .then(response => response.data)
+                .then(obj => {
+                    if (obj.length !== 0) {
+                        window.location.href = 'success.html'
+                    } else {
+                        window.location.href = 'textwrong.html'
+                    }
+                })
+        }
+
+        return false;
+    }
+
+
+
+
+
+
+
+
+    resend.addEventListener('click', randomsix, false);
+
+    resend.addEventListener('click', sendtxt, false);
+
+</script>
